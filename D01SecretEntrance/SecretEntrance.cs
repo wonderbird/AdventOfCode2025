@@ -9,7 +9,7 @@ public static class SecretEntrance
         var numberOfZeros = 0;
         foreach(var turn in turns)
         {
-            currentPosition = (currentPosition + turn.clicks) % 100;
+            currentPosition = (currentPosition + turn.Sign * turn.Clicks) % 100;
             if (currentPosition == 0)
             {
                 numberOfZeros++;
