@@ -36,6 +36,20 @@ If you are using Visual Studio Code, you might need to re-open the project folde
 
 ## Build, Test
 
+To simply run the unit test, execute
+
 ```shell
 dotnet test
+```
+
+To run mutation tests with [Stryker Mutator](https://stryker-mutator.io), first install the tool
+
+```shell
+dotnet tool restore
+```
+
+then run mutation tests
+
+```shell
+dotnet dotnet-stryker
 ```
