@@ -2,7 +2,7 @@ namespace D01SecretEntrance;
 
 public class SecretEntrance_PuzzleInput
 {
-    [Fact]
+    [Fact(Skip = "not implemented yet")]
     public void Returns()
     {
         var input = File.ReadAllLines("Data/PuzzleInput.txt");

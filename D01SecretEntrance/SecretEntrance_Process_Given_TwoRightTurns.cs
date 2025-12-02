@@ -17,9 +17,9 @@ public class SecretEntrance_Process_Given_TwoRightTurns
     }
 
     [Fact]
-    public void WhenOnlyFirstPointsAt0_Returns1()
+    public void WhenFirstPointsAt0AndSecondCrosses0_Returns2()
     {
         var actual = SecretEntrance.Process(["R50", "R101"]);
-        actual.Should().Be(1);
+        actual.Should().Be(2);
     }
 }
