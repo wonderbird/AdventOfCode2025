@@ -2,6 +2,7 @@ namespace D01SecretEntrance;
 
 public class SecretEntrance_PuzzleInput
 {
+    // 7379 is wrong
     [Fact(Skip = "not implemented yet")]
     public void Returns()
     {

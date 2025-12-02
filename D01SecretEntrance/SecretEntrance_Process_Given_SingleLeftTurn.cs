@@ -15,4 +15,18 @@ public class SecretEntrance_Process_Given_SingleLeftTurn
         var actual = SecretEntrance.Process(["L50"]);
         actual.Should().Be(1);
     }
+
+   [Fact]
+    public void WhenStoppingAtMinus100_Returns2()
+    {
+        var actual = SecretEntrance.Process(["L150"]);
+        actual.Should().Be(2);
+    }
+
+    [Fact]
+    public void WhenStoppingAtMinus350_Returns4()
+    {
+        var actual = SecretEntrance.Process(["L400"]);
+        actual.Should().Be(4);
+    }
 }

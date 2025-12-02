@@ -10,16 +10,17 @@ public static class SecretEntrance
         foreach(var turn in turns)
         {
             currentPosition += turn.Sign * turn.Clicks;
-            var zeroCrossings = currentPosition / 100;
+            if (currentPosition > 0)
+            {
+                var positiveZeroCrossings = currentPosition / 100;
+                numberOfZeros += positiveZeroCrossings;
+            }
+            else if (currentPosition <= 0)
+            {
+                var negativeZeroCrossings = -(currentPosition / 100) + 1;
+                numberOfZeros += negativeZeroCrossings;
+            }
             currentPosition %= 100;
-            if (zeroCrossings >= 1)
-            {
-                numberOfZeros += zeroCrossings;
-            }
-            else if (currentPosition == 0)
-            {
-                numberOfZeros++;
-            }
         }
         return numberOfZeros;
     }
