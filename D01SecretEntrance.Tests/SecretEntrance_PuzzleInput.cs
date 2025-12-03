@@ -2,8 +2,9 @@ namespace D01SecretEntrance;
 
 public class SecretEntrance_PuzzleInput
 {
-    // 7379 is wrong
+    // 7379, 7406 are wrong
     [Fact(Skip = "not implemented yet")]
+    // [Fact]
     public void Returns()
     {
         var input = File.ReadAllLines("Data/PuzzleInput.txt");
