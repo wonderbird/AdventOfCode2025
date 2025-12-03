@@ -2,7 +2,7 @@ namespace D01SecretEntrance;
 
 public class SecretEntrance_PuzzleInput
 {
-    // 7379, 7406 are wrong
+    // 7379, 7406, 6765 are too high
     [Fact(Skip = "not implemented yet")]
     // [Fact]
     public void Returns()

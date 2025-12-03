@@ -21,6 +21,10 @@ public static class SecretEntrance
                 numberOfZeros += negativeZeroCrossings;
             }
             currentPosition %= 100;
+            if (currentPosition < 0)
+            {
+                currentPosition += 100;
+            }
         }
         return numberOfZeros;
     }
