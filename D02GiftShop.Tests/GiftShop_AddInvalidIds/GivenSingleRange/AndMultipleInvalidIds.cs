@@ -15,8 +15,8 @@ public class AndMultipleInvalidIds
     }
 
     [Fact]
-    public void When90To1200_Returns99Plus1010Plus1111()
+    public void When90To1200_Returns99Plus111Plus222Plus333Plus444Plus555Plus666Plus777Plus888Plus999Plus1010Plus1111()
     {
-        GiftShop.AddInvalidIds(["90-1200"]).Should().Be(99 + 1010 + 1111);
+        GiftShop.AddInvalidIds(["90-1200"]).Should().Be(99 + 111 + 222 + 333 + 444 + 555 + 666 + 777 + 888 + 999 + 1010 + 1111);
     }
 }

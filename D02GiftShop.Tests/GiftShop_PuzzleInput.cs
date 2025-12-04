@@ -1,11 +1,9 @@
-using D02GiftShop;
-
-namespace D01SecretEntrance;
+namespace D02GiftShop;
 
 public class GiftShop_PuzzleInput
 {
-    // [Fact(Skip = "not implemented yet")]
-    [Fact]
+    [Fact(Skip = "not implemented yet")]
+    // [Fact]
     public void Returns()
     {
         var input = File.ReadAllLines("Data/PuzzleInput.txt");

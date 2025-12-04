@@ -18,10 +18,14 @@ public class GiftShop
             {
                 var numberAsString = number.ToString();
                 var length = numberAsString.Length;
+
                 var leftHalf = numberAsString.Substring(0, length / 2);
                 var rightHalf = numberAsString.Substring(length / 2);
 
-                if (leftHalf == rightHalf)
+                var firstDigit = numberAsString[0];
+
+                if ((leftHalf == rightHalf)
+                    || (length > 1 && numberAsString.All(x => x == firstDigit)))
                 {
                     sum += number;
                 }
