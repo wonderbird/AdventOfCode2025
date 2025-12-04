@@ -20,7 +20,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\D02GiftShop\D02GiftShop.csproj" />
+    <Content Include="Data\*.*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>  
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\D02GiftShop\D02GiftShop.csproj" />
+  </ItemGroup>
 </Project>
