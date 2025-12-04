@@ -5,24 +5,31 @@ namespace D03Lobby;
 
 public class Lobby
 {
-    public static int CalculateTotalJoltage(string bank)
+    public static int CalculateTotalJoltage(IEnumerable<string> banks)
     {
-        var unsorted = bank.Select(x => x - '0').ToList();
-        var sorted = unsorted.OrderByDescending(x => x).ToList();
+        var sum = 0;
 
-        var first = sorted[0];
-        var second = sorted[1];
-
-        var indexOfFirst = unsorted.FindIndex(x => x == first);
-        var indexOfSecond = unsorted.FindIndex(x => x == second);
-
-        if (indexOfFirst < indexOfSecond)
+        foreach (var bank in banks)
         {
-            return 10 * first + second;
+            var unsorted = bank.Select(x => x - '0').ToList();
+            var sorted = unsorted.OrderByDescending(x => x).ToList();
+
+            var first = sorted[0];
+            var second = sorted[1];
+
+            var indexOfFirst = unsorted.FindIndex(x => x == first);
+            var indexOfSecond = unsorted.FindIndex(x => x == second);
+
+            if (indexOfFirst < indexOfSecond)
+            {
+                sum += 10 * first + second;
+            }
+            else
+            {
+                sum += 10 * second + first;
+            }
         }
-        else
-        {
-            return 10 * second + first;
-        }
+
+        return sum;
     }
 }
