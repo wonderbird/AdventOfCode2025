@@ -7,9 +7,9 @@ public static class SecretEntrance
         var turns = rotations.Select(Turn.Parse);
         var currentPosition = 50;
         var numberOfZeros = 0;
-        foreach(var turn in turns)
+        foreach (var turn in turns)
         {
-            var nextPosition = currentPosition + turn.Sign * turn.Clicks; 
+            var nextPosition = currentPosition + turn.Sign * turn.Clicks;
             if (nextPosition > 0)
             {
                 var positiveZeroCrossings = nextPosition / 100;
@@ -23,7 +23,7 @@ public static class SecretEntrance
             else if (currentPosition == 0)
             {
                 var negativeZeroCrossings = -(nextPosition / 100);
-                numberOfZeros += negativeZeroCrossings;                
+                numberOfZeros += negativeZeroCrossings;
             }
 
             currentPosition = nextPosition % 100;

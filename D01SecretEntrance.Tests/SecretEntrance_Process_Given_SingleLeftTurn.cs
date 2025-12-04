@@ -16,7 +16,7 @@ public class SecretEntrance_Process_Given_SingleLeftTurn
         actual.Should().Be(1);
     }
 
-   [Fact]
+    [Fact]
     public void WhenStoppingAtMinus100_Returns2()
     {
         var actual = SecretEntrance.Process(["L150"]);
