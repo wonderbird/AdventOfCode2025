@@ -20,4 +20,9 @@ public class GiftShop_AddInvalidIds_GivenSingleRangeAndInvalidNumbers
         GiftShop.AddInvalidIds(["33-33"]).Should().Be(33);
     }
 
+    [Fact]
+    public void When1313_Returns1313()
+    {
+        GiftShop.AddInvalidIds(["1313-1313"]).Should().Be(1313);
+    }
 }

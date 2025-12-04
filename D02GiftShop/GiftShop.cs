@@ -7,19 +7,17 @@ public class GiftShop
     {
         var range = ranges.First();
         var rangeLimits = range.Split('-');
+        
         var left = int.Parse(rangeLimits[0]);
+
+        var numberAsString = left.ToString();
+        var length = numberAsString.Length;
+        var leftHalf = numberAsString.Substring(0, length/2);
+        var rightHalf = numberAsString.Substring(length / 2);
     
-        if (left == 33)
+        if (leftHalf == rightHalf)
         {
-            return 33;
-        }
-        if (left == 22)
-        {
-            return 22;
-        }
-        if (left == 11)
-        {
-            return 11;
+            return left;
         }
         return 0;
     }
