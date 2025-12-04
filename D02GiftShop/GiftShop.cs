@@ -24,7 +24,7 @@ public class GiftShop
         return sum;
     }
 
-    private static bool IsInvalidId(ulong number)
+    public static bool IsInvalidId(ulong number)
     {
         var numberAsString = number.ToString();
         var length = numberAsString.Length;
@@ -36,6 +36,11 @@ public class GiftShop
 
         for (var chunkSize = 1; chunkSize <= length / 2; chunkSize++)
         {
+            if (length % chunkSize != 0)
+            {
+                continue;
+            }
+
             var isMatch = true;
             var pattern = numberAsString.Substring(0, chunkSize);
             var comparisonStart = chunkSize;
