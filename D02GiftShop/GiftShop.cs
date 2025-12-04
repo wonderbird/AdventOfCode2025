@@ -11,6 +11,7 @@ public class GiftShop
         var left = int.Parse(rangeLimits[0]);
         var right = int.Parse(rangeLimits[1]);
 
+        var sum = 0;
         for (var number = left; number <= right; number++)
         {
             var numberAsString = number.ToString();
@@ -20,9 +21,9 @@ public class GiftShop
         
             if (leftHalf == rightHalf)
             {
-                return number;
+                sum += number;
             }            
         }
-        return 0;
+        return sum;
     }
 }
