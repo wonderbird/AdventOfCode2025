@@ -9,15 +9,19 @@ public class GiftShop
         var rangeLimits = range.Split('-');
         
         var left = int.Parse(rangeLimits[0]);
+        var right = int.Parse(rangeLimits[1]);
 
-        var numberAsString = left.ToString();
-        var length = numberAsString.Length;
-        var leftHalf = numberAsString.Substring(0, length/2);
-        var rightHalf = numberAsString.Substring(length / 2);
-    
-        if (leftHalf == rightHalf)
+        for (var number = left; number <= right; number++)
         {
-            return left;
+            var numberAsString = number.ToString();
+            var length = numberAsString.Length;
+            var leftHalf = numberAsString.Substring(0, length/2);
+            var rightHalf = numberAsString.Substring(length / 2);
+        
+            if (leftHalf == rightHalf)
+            {
+                return number;
+            }            
         }
         return 0;
     }

@@ -1,6 +1,6 @@
-﻿namespace D02GiftShop.Tests;
+﻿namespace D02GiftShop.Tests.GiftShop_AddInvalidIds.GivenSingleRange;
 
-public class GiftShop_AddInvalidIds_GivenSingleRangeAndInvalidNumbers
+public class AndSingleInvalidId
 {
     [Fact]
     public void When11_Returns11()
@@ -24,5 +24,17 @@ public class GiftShop_AddInvalidIds_GivenSingleRangeAndInvalidNumbers
     public void When1313_Returns1313()
     {
         GiftShop.AddInvalidIds(["1313-1313"]).Should().Be(1313);
+    }
+
+    [Fact]
+    public void When10To11_Returns11()
+    {
+        GiftShop.AddInvalidIds(["10-11"]).Should().Be(11);
+    }
+
+    [Fact]
+    public void When20To30_Returns22()
+    {
+        GiftShop.AddInvalidIds(["20-30"]).Should().Be(22);
     }
 }
