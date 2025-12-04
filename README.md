@@ -1,20 +1,22 @@
 # AdventOfCode2024
 
-Solutions for the [Advent of Code '25](https://adventofcode.com/) puzzles
+Solutions for the [Advent of Code '25](https://adventofcode.com/) puzzles.
+
+The solution for each part is marked by a tag in the git history.
 
 ## New Puzzle
 
-In the following shell command sequence, replace `D02GiftShop` by the name of the next project.
-Then, replace `D01SecretEntrance` by `D01SecretEntrance`.
+In the following shell command sequence, replace `D03Lobby` by the name of the next project.
+Then, replace `D02GiftShop` by `D03Lobby`.
 
 ```shell
-dotnet new classlib -o D02GiftShop; \
-dotnet sln add D02GiftShop; \
-dotnet new xunit -o D02GiftShop.Tests; \
-dotnet sln add D02GiftShop.Tests; \
-dotnet reference add D02GiftShop/D02GiftShop.csproj --project D02GiftShop.Tests/D02GiftShop.Tests.csproj \
+dotnet new classlib -o D03Lobby; \
+dotnet sln add D03Lobby; \
+dotnet new xunit -o D03Lobby.Tests; \
+dotnet sln add D03Lobby.Tests; \
+dotnet reference add D03Lobby/D03Lobby.csproj --project D03Lobby.Tests/D03Lobby.Tests.csproj; \
 \
-cd D02GiftShop.Tests; \
+cd D03Lobby.Tests; \
 dotnet add package FluentAssertions; \
 \
 mkdir Data; \
@@ -22,7 +24,7 @@ echo "Ensure that the folder is created. Place your puzzle input here." > Data/.
 echo "Ensure that the folder is created. Place your puzzle input here." > Data/PuzzleInput.txt; \
 cd ..; \
 \
-cp D01SecretEntrance.Tests/GlobalUsings.cs D02GiftShop.Tests/
+cp D02GiftShop.Tests/GlobalUsings.cs D03Lobby.Tests/
 ```
 
 Add the following configuration to the bottom of the `.csproj` file, right before the closing `</Project>` tag.
