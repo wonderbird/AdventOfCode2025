@@ -1,5 +1,4 @@
-﻿
-namespace D02GiftShop;
+﻿namespace D02GiftShop;
 
 public class GiftShop
 {
@@ -16,21 +15,43 @@ public class GiftShop
 
             for (var number = left; number <= right; number++)
             {
-                var numberAsString = number.ToString();
-                var length = numberAsString.Length;
-
-                var leftHalf = numberAsString.Substring(0, length / 2);
-                var rightHalf = numberAsString.Substring(length / 2);
-
-                var firstDigit = numberAsString[0];
-
-                if ((leftHalf == rightHalf)
-                    || (length > 1 && numberAsString.All(x => x == firstDigit)))
+                if (IsInvalidId(number))
                 {
                     sum += number;
                 }
             }
         }
         return sum;
+    }
+
+    private static bool IsInvalidId(ulong number)
+    {
+        var numberAsString = number.ToString();
+        var length = numberAsString.Length;
+
+        if (length < 2)
+        {
+            return false;
+        }
+
+        for (var chunkSize = 1; chunkSize <= length / 2; chunkSize++)
+        {
+            var isMatch = true;
+            var pattern = numberAsString.Substring(0, chunkSize);
+            var comparisonStart = chunkSize;
+            while (isMatch && (comparisonStart + chunkSize <= length))
+            {
+                var comparison = numberAsString.Substring(comparisonStart, chunkSize);
+                isMatch = isMatch && (comparison == pattern);
+                comparisonStart += chunkSize;
+            }
+
+            if (isMatch)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

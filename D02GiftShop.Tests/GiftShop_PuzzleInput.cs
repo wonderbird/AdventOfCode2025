@@ -2,6 +2,7 @@ namespace D02GiftShop;
 
 public class GiftShop_PuzzleInput
 {
+    // Too High: 1134489814339UL
     [Fact(Skip = "not implemented yet")]
     // [Fact]
     public void Returns()
