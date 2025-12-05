@@ -5,6 +5,6 @@ public class AndMultipleBatteries
     [Fact]
     public void Test()
     {
-        Lobby.CalculateTotalJoltage(["123", "591"]).Should().Be(23 + 59);
+        Lobby.CalculateTotalJoltage(["123", "591"]).Should().Be(23 + 91);
     }
 }
