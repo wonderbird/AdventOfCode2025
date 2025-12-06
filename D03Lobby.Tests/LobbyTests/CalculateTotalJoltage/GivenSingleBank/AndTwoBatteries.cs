@@ -1,4 +1,4 @@
-﻿namespace D03Lobby.Tests.Lobby_CalculateTotalJoltage.GivenSingleBank;
+﻿namespace D03Lobby.Tests.LobbyTests.CalculateTotalJoltage.GivenSingleBank;
 
 public class AndTwoBatteries
 {

@@ -1,4 +1,4 @@
-namespace D03Lobby.Tests.Lobby_CalculateTotalJoltage.GivenMultipleBanks;
+namespace D03Lobby.Tests.LobbyTests.CalculateTotalJoltage.GivenMultipleBanks;
 
 public class AndMultipleBatteries
 {

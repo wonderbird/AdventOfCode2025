@@ -1,4 +1,4 @@
-namespace D03Lobby.Tests.Lobby_CalculateTotalJoltage;
+namespace D03Lobby.Tests.LobbyTests.CalculateTotalJoltage;
 
 public class GivenPuzzleInput
 {

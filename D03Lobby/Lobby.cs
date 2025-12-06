@@ -1,5 +1,4 @@
-﻿using System.Numerics;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace D03Lobby;
@@ -36,9 +35,15 @@ public class Lobby
         return sum;
     }
 
-    private static int CalculateJoltageOfBank(string bank, int numberOfActiveBatteries)
+    public static int CalculateJoltageOfBank(string bank, int numberOfActiveBatteries)
     {
         var unsorted = bank.Select(x => x - '0').ToList();
+        
+        if (numberOfActiveBatteries == 1)
+        {
+            return FindLargestJoltage(unsorted).joltage;
+        }
+        
         var sizeOfBank = bank.Length;
         var (joltage, index) = FindLargestJoltage(unsorted);
 
