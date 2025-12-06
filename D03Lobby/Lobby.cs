@@ -23,56 +23,59 @@ public class Lobby
     {
         var sum = 0;
 
-        foreach (var bank in banks)
+        foreach (var bankString in banks)
         {
-            var joltageOfBank = CalculateJoltageOfBank(bank, numberOfActiveBatteries);
+            var bank = bankString.Select(x => x - '0').ToList();
+            var joltage = CalculateJoltageOfBank(bank, numberOfActiveBatteries);
+            sum += joltage;
 
-            sum += joltageOfBank;
-
-            _logger.LogInformation("{Bank} => {JoltageOfBank}", bank, joltageOfBank);
+            _logger.LogInformation("{Bank} => {JoltageOfBank}", bankString, joltage);
         }
 
         return sum;
     }
 
-    public static int CalculateJoltageOfBank(string bank, int numberOfActiveBatteries)
+    public static int CalculateJoltageOfBank(List<int> bank, int numberOfActiveBatteries)
     {
-        var unsorted = bank.Select(x => x - '0').ToList();
-        
+        var joltages = FindLargestJoltages(bank, numberOfActiveBatteries);
+        return ConvertToInt(joltages);
+    }
+
+    private static IEnumerable<int> FindLargestJoltages(List<int> bank, int numberOfActiveBatteries)
+    {
+        var (joltage, index) = FindMaximum(bank);
+
         if (numberOfActiveBatteries == 1)
         {
-            return FindLargestJoltage(unsorted).joltage;
+            return [joltage];
         }
-        
-        var sizeOfBank = bank.Length;
-        var (joltage, index) = FindLargestJoltage(unsorted);
 
-        var first = 0;
-        var second = 0;
-        if (index == sizeOfBank - 1)
+        if (index == bank.Count - 1)
         {
-            second = joltage;
-            (joltage, _) = FindLargestJoltage(unsorted.Slice(0, index));
-            first = joltage;
+            var slice = bank.Slice(0, bank.Count - 1);
+            var left = FindLargestJoltages(slice, numberOfActiveBatteries - 1);
+            return [..left, joltage];
         }
         else
         {
-            first = joltage;
-            (joltage, _) = FindLargestJoltage(unsorted.Slice(index + 1, sizeOfBank - index - 1));
-            second = joltage;
+            var slice = bank.Slice(index + 1, bank.Count - 1 - index);
+            var right = FindLargestJoltages(slice, numberOfActiveBatteries - 1);
+            return [joltage, ..right];
         }
-
-        var joltageOfBank = first * 10 + second;
-        return joltageOfBank;
     }
 
-    private static (int joltage, int index) FindLargestJoltage(List<int> unsortedSubset)
+    private static (int joltage, int index) FindMaximum(List<int> bank)
     {
-        var sortedSubset = unsortedSubset.OrderByDescending(x => x).ToList();
-        var joltage = sortedSubset[0];
+        var joltage = bank.Max();
 
-        var index = unsortedSubset.IndexOf(joltage);
+        var index = bank.IndexOf(joltage);
 
         return (joltage, index);
+    }
+
+    private static int ConvertToInt(IEnumerable<int> joltages)
+    {
+        var bankJoltageAsString = string.Join("", joltages);
+        return int.Parse(bankJoltageAsString);
     }
 }
