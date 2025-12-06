@@ -19,9 +19,9 @@ public class Lobby
         }
     }
 
-    public int CalculateTotalJoltage(IEnumerable<string> banks, int numberOfActiveBatteries)
+    public ulong CalculateTotalJoltage(IEnumerable<string> banks, int numberOfActiveBatteries)
     {
-        var sum = 0;
+        var sum = 0UL;
 
         foreach (var bankString in banks)
         {
@@ -35,33 +35,39 @@ public class Lobby
         return sum;
     }
 
-    public static int CalculateJoltageOfBank(List<int> bank, int numberOfActiveBatteries)
+    public ulong CalculateJoltageOfBank(List<int> bank, int numberOfActiveBatteries)
     {
+        _logger.LogInformation("Processing {Bank}", bank);
         var joltages = FindLargestJoltages(bank, numberOfActiveBatteries);
-        return ConvertToInt(joltages);
+        return ConvertToNumber(joltages);
     }
 
     private static IEnumerable<int> FindLargestJoltages(List<int> bank, int numberOfActiveBatteries)
     {
-        var (joltage, index) = FindMaximum(bank);
+        // If there are exactly as many batteries as needed, then
+        // all batteries are returned in order
+        if (bank.Count == numberOfActiveBatteries)
+        {
+            return bank;
+        }
 
+        // We have more batteries than needed
         if (numberOfActiveBatteries == 1)
         {
-            return [joltage];
+            return [FindMaximum(bank).joltage];
         }
 
-        if (index == bank.Count - 1)
-        {
-            var slice = bank.Slice(0, bank.Count - 1);
-            var left = FindLargestJoltages(slice, numberOfActiveBatteries - 1);
-            return [..left, joltage];
-        }
-        else
-        {
-            var slice = bank.Slice(index + 1, bank.Count - 1 - index);
-            var right = FindLargestJoltages(slice, numberOfActiveBatteries - 1);
-            return [joltage, ..right];
-        }
+        // We have more batteries than needed
+        // We need more than one battery
+        // Thus, select the strongest from the left
+        var options = bank.Slice(0, bank.Count - numberOfActiveBatteries + 1);
+        var (joltage, index) = FindMaximum(options);
+
+        // Find the remaining batteries right from the strongest
+        var remainder = bank.Slice(index + 1, bank.Count - 1 - index);
+        var right = FindLargestJoltages(remainder, numberOfActiveBatteries - 1);
+
+        return [joltage, ..right];
     }
 
     private static (int joltage, int index) FindMaximum(List<int> bank)
@@ -73,9 +79,9 @@ public class Lobby
         return (joltage, index);
     }
 
-    private static int ConvertToInt(IEnumerable<int> joltages)
+    private static ulong ConvertToNumber(IEnumerable<int> joltages)
     {
         var bankJoltageAsString = string.Join("", joltages);
-        return int.Parse(bankJoltageAsString);
+        return ulong.Parse(bankJoltageAsString);
     }
 }
