@@ -20,32 +20,39 @@ public class Lobby
         }
     }
 
+    private static int CalculateJoltageOfBank(string bank)
+    {
+        var unsorted = bank.Select(x => x - '0').ToList();
+        var sizeOfBank = bank.Length;
+        var (joltage, index) = FindLargestJoltage(unsorted);
+
+        var first = 0;
+        var second = 0;
+        if (index == sizeOfBank - 1)
+        {
+            second = joltage;
+            (joltage, _) = FindLargestJoltage(unsorted.Slice(0, index));
+            first = joltage;
+        }
+        else
+        {
+            first = joltage;
+            (joltage, _) = FindLargestJoltage(unsorted.Slice(index + 1, sizeOfBank - index - 1));
+            second = joltage;
+        }
+
+        var joltageOfBank = first * 10 + second;
+        return joltageOfBank;
+    }
+
     public int CalculateTotalJoltage(IEnumerable<string> banks)
     {
         var sum = 0;
 
         foreach (var bank in banks)
         {
-            var unsorted = bank.Select(x => x - '0').ToList();
-            var sizeOfBank = bank.Length;
-            var (joltage, index) = FindLargestJoltage(unsorted);
+            var joltageOfBank = CalculateJoltageOfBank(bank);
 
-            var first = 0;
-            var second = 0;
-            if (index == sizeOfBank - 1)
-            {
-                second = joltage;
-                (joltage, _) = FindLargestJoltage(unsorted.Slice(0, index));
-                first = joltage;
-            }
-            else
-            {
-                first = joltage;
-                (joltage, _) = FindLargestJoltage(unsorted.Slice(index + 1, sizeOfBank - index - 1));
-                second = joltage;
-            }
-
-            var joltageOfBank = first * 10 + second;
             sum += joltageOfBank;
 
             _logger.LogInformation("{Bank} => {JoltageOfBank}", bank, joltageOfBank);
