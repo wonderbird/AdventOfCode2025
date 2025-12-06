@@ -7,14 +7,14 @@ public class GivenPuzzleInput
     public void WhenPuzzleInput_ReturnsExpectedResult()
     {
         var input = File.ReadAllLines("Data/PuzzleInput.txt");
-        new Lobby().CalculateTotalJoltage(input).Should().Be(16887);
+        new Lobby().CalculateTotalJoltage(input, 2).Should().Be(16887);
     }
 
     [Fact]
     public void WhenExampleInput_ReturnsExpectedResult()
     {
         var input = File.ReadAllLines("Data/ExampleInput.txt");
-        new Lobby().CalculateTotalJoltage(input).Should().Be(357);
+        new Lobby().CalculateTotalJoltage(input, 2).Should().Be(357);
     }
 
     [Theory]
@@ -25,6 +25,6 @@ public class GivenPuzzleInput
     public void WhenBankFromExampleInput_ReturnsExpectedResult(string bank, int expected)
     {
         IEnumerable<string> banks = [bank];
-        new Lobby().CalculateTotalJoltage(banks).Should().Be(expected);
+        new Lobby().CalculateTotalJoltage(banks, 2).Should().Be(expected);
     }
 }

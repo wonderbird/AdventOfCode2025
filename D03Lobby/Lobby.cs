@@ -20,7 +20,23 @@ public class Lobby
         }
     }
 
-    private static int CalculateJoltageOfBank(string bank)
+    public int CalculateTotalJoltage(IEnumerable<string> banks, int numberOfActiveBatteries)
+    {
+        var sum = 0;
+
+        foreach (var bank in banks)
+        {
+            var joltageOfBank = CalculateJoltageOfBank(bank, numberOfActiveBatteries);
+
+            sum += joltageOfBank;
+
+            _logger.LogInformation("{Bank} => {JoltageOfBank}", bank, joltageOfBank);
+        }
+
+        return sum;
+    }
+
+    private static int CalculateJoltageOfBank(string bank, int numberOfActiveBatteries)
     {
         var unsorted = bank.Select(x => x - '0').ToList();
         var sizeOfBank = bank.Length;
@@ -43,22 +59,6 @@ public class Lobby
 
         var joltageOfBank = first * 10 + second;
         return joltageOfBank;
-    }
-
-    public int CalculateTotalJoltage(IEnumerable<string> banks)
-    {
-        var sum = 0;
-
-        foreach (var bank in banks)
-        {
-            var joltageOfBank = CalculateJoltageOfBank(bank);
-
-            sum += joltageOfBank;
-
-            _logger.LogInformation("{Bank} => {JoltageOfBank}", bank, joltageOfBank);
-        }
-
-        return sum;
     }
 
     private static (int joltage, int index) FindLargestJoltage(List<int> unsortedSubset)

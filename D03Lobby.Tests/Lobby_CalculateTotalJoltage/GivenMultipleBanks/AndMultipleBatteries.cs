@@ -6,6 +6,6 @@ public class AndMultipleBatteries
     public void Test()
     {
         IEnumerable<string> banks = ["123", "591"];
-        new Lobby().CalculateTotalJoltage(banks).Should().Be(23 + 91);
+        new Lobby().CalculateTotalJoltage(banks, 2).Should().Be(23 + 91);
     }
 }
