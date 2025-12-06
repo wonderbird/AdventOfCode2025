@@ -5,18 +5,21 @@ public class AndMultipleBatteries
     [Fact]
     public void When123_returns23()
     {
-        Lobby.CalculateTotalJoltage(["123"]).Should().Be(23);
+        IEnumerable<string> banks = ["123"];
+        new Lobby().CalculateTotalJoltage(banks).Should().Be(23);
     }
     
     [Fact]
     public void When121_returns21()
     {
-        Lobby.CalculateTotalJoltage(["121"]).Should().Be(21);
+        IEnumerable<string> banks = ["121"];
+        new Lobby().CalculateTotalJoltage(banks).Should().Be(21);
     }
     
     [Fact]
     public void When571_returns71()
     {
-        Lobby.CalculateTotalJoltage(["571"]).Should().Be(71);
+        IEnumerable<string> banks = ["571"];
+        new Lobby().CalculateTotalJoltage(banks).Should().Be(71);
     }
 }

@@ -1,49 +1,66 @@
 ﻿using System.Numerics;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace D03Lobby;
 
 public class Lobby
 {
-    public static int CalculateTotalJoltage(IEnumerable<string> banks)
+    private readonly ILogger _logger;
+
+    public Lobby(ILoggerFactory? loggerFactory = null)
+    {
+        if (loggerFactory != null)
+        {
+            _logger = loggerFactory.CreateLogger("Lobby");
+        }
+        else
+        {
+            _logger = NullLogger.Instance;
+        }
+    }
+
+    public int CalculateTotalJoltage(IEnumerable<string> banks)
     {
         var sum = 0;
 
-        // Refactor:
-        // If the battery with maximum joltage is not the last battery in the bank, then it must always be the 10x digit.
         foreach (var bank in banks)
         {
             var unsorted = bank.Select(x => x - '0').ToList();
-            var sorted = unsorted.OrderByDescending(x => x).ToList();
+            var sizeOfBank = bank.Length;
+            var (joltage, index) = FindLargestJoltage(unsorted);
 
-            var larger = sorted[0];
-            var lower = sorted[1];
-
-            var indexOfLarger = unsorted.IndexOf(larger);
-            var indexOfLower = unsorted.LastIndexOf(lower);
-            var candidate = 0;
-            if (indexOfLarger < indexOfLower)
+            var first = 0;
+            var second = 0;
+            if (index == sizeOfBank - 1)
             {
-                candidate = 10 * larger + lower;
+                second = joltage;
+                (joltage, _) = FindLargestJoltage(unsorted.Slice(0, index));
+                first = joltage;
             }
             else
             {
-                candidate = 10 * lower + larger;
-            }
-            
-            var length = bank.Length;
-            if (indexOfLarger < length - 1 && larger * 10 > candidate)
-            {
-                var subsetStart = indexOfLarger + 1;
-                var subsetLength = length - subsetStart;
-                var unsortedSubset = unsorted.Slice(subsetStart, subsetLength);
-                var sortedSubset = unsortedSubset.OrderByDescending(x => x).ToList();
-                var largestInSubset = sortedSubset[0];
-                candidate = 10 * larger + largestInSubset;
+                first = joltage;
+                (joltage, _) = FindLargestJoltage(unsorted.Slice(index + 1, sizeOfBank - index - 1));
+                second = joltage;
             }
 
-            sum += candidate;
+            var joltageOfBank = first * 10 + second;
+            sum += joltageOfBank;
+
+            _logger.LogInformation("{Bank} => {JoltageOfBank}", bank, joltageOfBank);
         }
 
         return sum;
+    }
+
+    private static (int joltage, int index) FindLargestJoltage(List<int> unsortedSubset)
+    {
+        var sortedSubset = unsortedSubset.OrderByDescending(x => x).ToList();
+        var joltage = sortedSubset[0];
+
+        var index = unsortedSubset.IndexOf(joltage);
+
+        return (joltage, index);
     }
 }

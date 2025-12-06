@@ -2,20 +2,19 @@ namespace D03Lobby.Tests.Lobby_CalculateTotalJoltage;
 
 public class GivenPuzzleInput
 {
-    // Too low: 814
-    [Fact(Skip = "not implemented yet")]
-    // [Fact]
+    //[Fact(Skip = "not implemented yet")]
+    [Fact]
     public void WhenPuzzleInput_ReturnsExpectedResult()
     {
         var input = File.ReadAllLines("Data/PuzzleInput.txt");
-        Lobby.CalculateTotalJoltage(input).Should().Be(357);
+        new Lobby().CalculateTotalJoltage(input).Should().Be(16887);
     }
 
     [Fact]
     public void WhenExampleInput_ReturnsExpectedResult()
     {
         var input = File.ReadAllLines("Data/ExampleInput.txt");
-        Lobby.CalculateTotalJoltage(input).Should().Be(357);
+        new Lobby().CalculateTotalJoltage(input).Should().Be(357);
     }
 
     [Theory]
@@ -25,6 +24,7 @@ public class GivenPuzzleInput
     [InlineData("818181911112111", 92)]
     public void WhenBankFromExampleInput_ReturnsExpectedResult(string bank, int expected)
     {
-        Lobby.CalculateTotalJoltage([bank]).Should().Be(expected);
+        IEnumerable<string> banks = [bank];
+        new Lobby().CalculateTotalJoltage(banks).Should().Be(expected);
     }
 }
