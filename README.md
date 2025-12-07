@@ -6,17 +6,17 @@ The solution for each part is marked by a tag in the git history.
 
 ## New Puzzle
 
-In the following shell command sequence, replace `D03Lobby` by the name of the next project.
-Then, replace `D02GiftShop` by `D03Lobby`.
+In the following shell command sequence, replace `D04PrintingDepartment` by the name of the next project.
+Then, replace `D03Lobby` by `D03Lobby`.
 
 ```shell
-dotnet new classlib -o D03Lobby; \
-dotnet sln add D03Lobby; \
-dotnet new xunit -o D03Lobby.Tests; \
-dotnet sln add D03Lobby.Tests; \
-dotnet reference add D03Lobby/D03Lobby.csproj --project D03Lobby.Tests/D03Lobby.Tests.csproj; \
+dotnet new classlib -o D04PrintingDepartment; \
+dotnet sln add D04PrintingDepartment; \
+dotnet new xunit -o D04PrintingDepartment.Tests; \
+dotnet sln add D04PrintingDepartment.Tests; \
+dotnet reference add D04PrintingDepartment/D04PrintingDepartment.csproj --project D04PrintingDepartment.Tests/D04PrintingDepartment.Tests.csproj; \
 \
-cd D03Lobby.Tests; \
+cd D04PrintingDepartment.Tests; \
 dotnet add package FluentAssertions; \
 \
 mkdir Data; \
@@ -24,7 +24,7 @@ echo "Ensure that the folder is created. Place your puzzle input here." > Data/.
 echo "Ensure that the folder is created. Place your puzzle input here." > Data/PuzzleInput.txt; \
 cd ..; \
 \
-cp D02GiftShop.Tests/GlobalUsings.cs D03Lobby.Tests/
+cp D03Lobby.Tests/GlobalUsings.cs D04PrintingDepartment.Tests/
 ```
 
 Add the following configuration to the bottom of the `.csproj` file, right before the closing `</Project>` tag.
