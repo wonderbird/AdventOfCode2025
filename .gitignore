@@ -1,6 +1,10 @@
 # Don't add personal puzzle input to the repository.
 /**/[Dd]ata/*
 
+# Keep ExampleInput and custom data derived from ExampleInput
+!/**/[Dd]ata/ExampleInput.txt
+!/**/[Dd]ata/OnlyOneRemovalStepPossible.txt
+
 # Keep empty folders containing a .gitkeep file.
 !/**/.gitkeep
 
