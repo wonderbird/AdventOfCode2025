@@ -7,12 +7,15 @@ public class GridCalculator
     private readonly int[,] _grid;
     private readonly int[,] _adjacentRolls;
     private readonly int[,] _accessibleRolls;
-    private int _numberOfAccessibleRolls;
+
+    public int AccessibleRolls { get; private set; }
+
+    public string[] StateAfterRemovingAccessibleRolls { get; private set; } = [];
 
     public GridCalculator(IEnumerable<string> input)
     {
         var enumeratedInput = input.ToList();
-        
+
         _yMax = enumeratedInput.Count;
         _xMax = enumeratedInput[0].Length;
         _grid = new int[_xMax + 2, _yMax + 2];
@@ -25,7 +28,11 @@ public class GridCalculator
 
         CalculateAccessibleRolls();
 
-        CountAccessibleRoles();
+        CountAccessibleRolls();
+
+        RemoveAccessibleRolls();
+
+        GridToStateAfterRemovingAccessibleRolls();
     }
 
     private void InputToGrid(IEnumerable<string> input)
@@ -82,17 +89,54 @@ public class GridCalculator
         }
     }
 
-    private void CountAccessibleRoles()
+    private void CountAccessibleRolls()
     {
-        _numberOfAccessibleRolls = 0;
+        AccessibleRolls = 0;
         foreach (var isAccessible in _accessibleRolls)
         {
             if (isAccessible == 1)
             {
-                _numberOfAccessibleRolls++;
+                AccessibleRolls++;
             }
         }
     }
 
-    public int AccessibleRolls => _numberOfAccessibleRolls;
+    private void RemoveAccessibleRolls()
+    {
+        for (var y = 1; y <= _yMax; y++)
+        {
+            for (var x = 1; x <= _xMax; x++)
+            {
+                var isAccessible = _accessibleRolls[x, y] == 1;
+                if (isAccessible)
+                {
+                    _grid[x, y] = 0;
+                }
+            }
+        }
+    }
+
+    private void GridToStateAfterRemovingAccessibleRolls()
+    {
+        var result = new List<string>();
+        
+        for (var y = 1; y <= _yMax; y++)
+        {
+            var row = "";
+            for (var x = 1; x <= _xMax; x++)
+            {
+                if (_grid[x, y] == 1)
+                {
+                    row += "@";
+                }
+                else
+                {
+                    row += ".";
+                }
+            }
+            result.Add(row);
+        }
+
+        StateAfterRemovingAccessibleRolls = result.ToArray();
+    }
 }
